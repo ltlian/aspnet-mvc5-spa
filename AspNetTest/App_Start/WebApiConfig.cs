@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -32,6 +31,19 @@ namespace AspNetTest
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.JsonFormatter.MediaTypeMappings
+                .Add
+                (
+                    new RequestHeaderMapping
+                    (
+                        "Accept",
+                        "text/html",
+                        StringComparison.InvariantCultureIgnoreCase,
+                        true,
+                        "application/json"
+                    )
+                );
         }
     }
 }
